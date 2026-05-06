@@ -44,7 +44,7 @@ $randomMessage = $messages[array_rand($messages)];
             align-items: center;
             justify-content: space-between;
             padding: 20px 40px;
-            background: rgba(32, 62, 169, 0.6);;
+            background: rgba(32, 62, 169, 0.6);
             border-bottom: 1px solid #e5e7eb;
         }
 
@@ -108,7 +108,7 @@ $randomMessage = $messages[array_rand($messages)];
 </head>
 <body>
     <header>
-        <img class="logo" src='/logo.png'></img>
+        <img class="logo" src='/logo.png'>
         <div class="title">Домашняя работа: Hello, World!</div>
         <div></div>
     </header>
