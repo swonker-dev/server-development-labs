@@ -35,6 +35,7 @@ if (trim($pageTitle) === '') {
             <ul>
                 <li><a href="/">Главная страница</a></li>
                 <li><a href="/articles">Статьи</a></li>
+                <li><a href="/articles/create">Добавить статью</a></li>
                 <li><a href="/articles/1">Статья №1</a></li>
                 <li><a href="/articles/2">Статья №2</a></li>
                 <li><a href="/article/1/edit">Редактировать статью №1</a></li>

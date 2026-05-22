@@ -49,6 +49,17 @@ if ($path === '/' || $path === '/articles') {
     exit;
 }
 
+if ($path === '/articles/create') {
+    $articlesController->create();
+    exit;
+}
+
+if (preg_match('#^/articles/(\d+)/delete$#', $path, $matches)) {
+    $articleId = (int) $matches[1];
+    $articlesController->delete($articleId);
+    exit;
+}
+
 if (preg_match('#^/articles/(\d+)/comments$#', $path, $matches)) {
     $articleId = (int) $matches[1];
     $commentsController->store($articleId);
@@ -58,6 +69,12 @@ if (preg_match('#^/articles/(\d+)/comments$#', $path, $matches)) {
 if (preg_match('#^/comments/(\d+)/edit$#', $path, $matches)) {
     $commentId = (int) $matches[1];
     $commentsController->edit($commentId);
+    exit;
+}
+
+if (preg_match('#^/comments/(\d+)/delete$#', $path, $matches)) {
+    $commentId = (int) $matches[1];
+    $commentsController->delete($commentId);
     exit;
 }
 

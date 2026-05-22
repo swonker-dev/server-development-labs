@@ -169,3 +169,24 @@ button:hover {
     color: #6b7280;
     font-size: 14px;
 }
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+.inline-form {
+    display: inline;
+    margin: 0;
+}
+
+.danger-button {
+    background: #b91c1c;
+}
+
+.danger-button:hover {
+    background: #991b1b;
+}

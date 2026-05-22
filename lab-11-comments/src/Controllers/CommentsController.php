@@ -63,6 +63,28 @@ class CommentsController
         ], 'Редактирование комментария');
     }
 
+    public function delete(int $commentId): void
+    {
+        $comment = Comment::findById($commentId);
+
+        if ($comment === null) {
+            $this->notFound();
+            return;
+        }
+
+        $articleId = $comment->articleId;
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header('Location: /articles/' . $articleId . '#comment' . $commentId);
+            exit;
+        }
+
+        $comment->delete();
+
+        header('Location: /articles/' . $articleId);
+        exit;
+    }
+
     private function notFound(): void
     {
         http_response_code(404);

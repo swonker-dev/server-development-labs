@@ -32,6 +32,34 @@ class ArticlesController
         ], $article->name);
     }
 
+    public function create(): void
+    {
+        $error = '';
+        $name = '';
+        $text = '';
+        $currentUserId = 1;
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = trim($_POST['name'] ?? '');
+            $text = trim($_POST['text'] ?? '');
+
+            if ($name === '' || $text === '') {
+                $error = 'Название и текст статьи не должны быть пустыми.';
+            } else {
+                $articleId = Article::create($currentUserId, $name, $text);
+
+                header('Location: /articles/' . $articleId);
+                exit;
+            }
+        }
+
+        $this->render('articles/create.php', [
+            'error' => $error,
+            'name' => $name,
+            'text' => $text,
+        ], 'Создание статьи');
+    }
+
     public function edit(int $id): void
     {
         $article = Article::findById($id);
@@ -61,6 +89,26 @@ class ArticlesController
             'error' => $error,
             'success' => $success,
         ], 'Редактирование статьи');
+    }
+
+    public function delete(int $id): void
+    {
+        $article = Article::findById($id);
+
+        if ($article === null) {
+            $this->notFound();
+            return;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header('Location: /articles/' . $id);
+            exit;
+        }
+
+        $article->delete();
+
+        header('Location: /articles');
+        exit;
     }
 
     public function notFound(): void

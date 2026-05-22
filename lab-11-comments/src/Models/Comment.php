@@ -111,4 +111,14 @@ class Comment
 
         $this->text = $text;
     }
+
+    public function delete(): void
+    {
+        $db = Database::getConnection();
+
+        $statement = $db->prepare('DELETE FROM comments WHERE id = :id');
+        $statement->execute([
+            'id' => $this->id,
+        ]);
+    }
 }

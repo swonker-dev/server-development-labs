@@ -52,6 +52,26 @@ class Article
         return new self($row);
     }
 
+    public static function create(int $authorId, string $name, string $text): int
+    {
+        $db = Database::getConnection();
+
+        $statement = $db->prepare('
+            INSERT INTO articles
+                (author_id, name, text, created_at)
+            VALUES
+                (:author_id, :name, :text, CURRENT_TIMESTAMP)
+        ');
+
+        $statement->execute([
+            'author_id' => $authorId,
+            'name' => $name,
+            'text' => $text,
+        ]);
+
+        return (int) $db->lastInsertId();
+    }
+
     public function update(string $name, string $text): void
     {
         $db = Database::getConnection();
@@ -70,5 +90,20 @@ class Article
 
         $this->name = $name;
         $this->text = $text;
+    }
+
+    public function delete(): void
+    {
+        $db = Database::getConnection();
+
+        $deleteComments = $db->prepare('DELETE FROM comments WHERE article_id = :article_id');
+        $deleteComments->execute([
+            'article_id' => $this->id,
+        ]);
+
+        $deleteArticle = $db->prepare('DELETE FROM articles WHERE id = :id');
+        $deleteArticle->execute([
+            'id' => $this->id,
+        ]);
     }
 }

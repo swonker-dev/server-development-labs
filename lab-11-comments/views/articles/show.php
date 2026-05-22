@@ -25,9 +25,18 @@
         <?= nl2br(htmlspecialchars($article->text, ENT_QUOTES, 'UTF-8')) ?>
     </p>
 
-    <p>
+    <div class="actions">
         <a href="/article/<?= $article->id ?>/edit">Редактировать статью</a>
-    </p>
+
+        <form
+            method="post"
+            action="/articles/<?= $article->id ?>/delete"
+            class="inline-form"
+            onsubmit="return confirm('Удалить статью? Вместе со статьёй удалятся все её комментарии.');"
+        >
+            <button type="submit" class="danger-button">Удалить статью</button>
+        </form>
+    </div>
 </article>
 
 <hr>
@@ -58,9 +67,18 @@
                     <?= nl2br(htmlspecialchars($comment->text, ENT_QUOTES, 'UTF-8')) ?>
                 </p>
 
-                <p>
+                <div class="actions">
                     <a href="/comments/<?= $comment->id ?>/edit">Редактировать</a>
-                </p>
+
+                    <form
+                        method="post"
+                        action="/comments/<?= $comment->id ?>/delete"
+                        class="inline-form"
+                        onsubmit="return confirm('Удалить комментарий?');"
+                    >
+                        <button type="submit" class="danger-button">Удалить</button>
+                    </form>
+                </div>
             </div>
         <?php endforeach; ?>
     <?php endif; ?>
